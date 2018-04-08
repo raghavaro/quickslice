@@ -63,24 +63,23 @@ will be represented as
 
 
 ### Example
-`file.cct` is a 128x128x128 grayscale tomographic model
+[file.cct](https://github.com/agu3010/cct/blob/master/file.cct) is a 128 x 128 x 128 grayscale tomographic model
 
 
 ## build.py
 
-The following command takes input of a directory containing slices in alphanumeric order and converts it to a CCT (Compressed Computed Tomography) file of size 128 x 128 x 128
+[build.py](https://github.com/agu3010/cct/blob/master/build.py) takes input of a directory containing slices in alphanumeric order and converts it to a CCT (Compressed Computed Tomography) file of size 128 x 128 x 128
 
     python build.py --path path/to/directory
 
 
-## face.py
+## slice.py
 
-Face.py is used to extract faces and planes from a 3d file. The following command shows the xy plane at z = 0 of `file.cct`
+[slice.py](https://github.com/agu3010/cct/blob/master/slice.py) is used to extract a slice from a cct file. The following command shows the xy plane at z = 0 of [file.cct](https://github.com/agu3010/cct/blob/master/file.cct)
 
-    python face.py -f xy0 --ct file.cct
+    python slice.py -z 0 --ct file.cct
 
-### The xy0 plane output
+### The z=0 plane output
 
-![xy0 plane](https://github.com/agu3010/cct/blob/master/output.png?raw=true)
-
+![-z 0 plane](https://github.com/agu3010/cct/blob/master/output.png?raw=true)
 
