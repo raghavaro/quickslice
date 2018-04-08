@@ -48,8 +48,8 @@ if __name__ == '__main__':
     #face = [args.face[0], args.face[1], args.face[2]]
     voxels = read_cct_file(args.cct)
     slice = get_face_at_threshold(voxels, args.face, args.threshold)
-    if not slice:
-        sys.exit('An error occured')
+    if slice is None:
+        sys.exit('Cannot generate slice')
     img = Image.fromarray(np.uint8(slice * 255), 'L')
     img.save('output.png')
     img.show()
