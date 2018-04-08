@@ -22,12 +22,11 @@ def build_voxel_array(directory, size):
     return cct
 
 def create_cct_file(voxels):
-    f = open('output.cct', 'w')
+    f = open('file.cct', 'w')
     f.write('{},{},{}'.format(voxels.shape[0], voxels.shape[1], voxels.shape[2]))
-    f.write('\n')
     for plane in voxels:
-        f.write(','.join(map(str,plane.ravel().tolist())))
         f.write('\n')
+        f.write(','.join(map(str,plane.ravel().tolist())))
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
