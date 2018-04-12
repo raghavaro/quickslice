@@ -18,6 +18,7 @@ def read_cct_file(file):
     return volume
 
 def get_slice(volume, plane, threshold):
+    volume = np.clip(volume, threshold[0], threshold[1])
     slice = None
     variable = plane[:1] 
     value = float(plane[1:])
