@@ -18,16 +18,11 @@ def read_cct_file(file):
     return volume
 
 def get_slice(volume, plane, threshold):
-    print volume.shape
-    print plane
-    print threshold
     slice = None
     variable = plane[:1] 
     value = float(plane[1:])
-    print variable, value
     if variable == 'x':
         x = int(math.ceil(value*(volume.shape[0]-1)))
-        print x
         slice = volume[:,:,x]
     elif variable == 'y':
         y = int(math.ceil(value*(volume.shape[1]-1)))
@@ -35,7 +30,6 @@ def get_slice(volume, plane, threshold):
     elif variable == 'z':
         z = int(math.ceil(value*(volume.shape[2]-1)))
         slice = volume[z,:,:]
-    
     return slice
  
     
