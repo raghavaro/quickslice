@@ -23,13 +23,13 @@ def get_slice(volume, plane, threshold):
     variable = plane[:1] 
     value = float(plane[1:])
     if variable == 'x':
-        x = int(math.ceil(value*(volume.shape[0]-1)))
+        x = int(math.ceil(value*(volume.shape[2]-1)))
         slice = volume[:,:,x]
     elif variable == 'y':
         y = int(math.ceil(value*(volume.shape[1]-1)))
         slice = volume[:,y,:]
     elif variable == 'z':
-        z = int(math.ceil(value*(volume.shape[2]-1)))
+        z = int(math.ceil(value*(volume.shape[0]-1)))
         slice = volume[z,:,:]
     return slice
  

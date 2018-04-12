@@ -13,8 +13,8 @@ def build_voxel_array(directory, size):
         imgfile = imagelist[n]
         image = Image.open(os.path.join(directory, imgfile)).convert('L')
         slice = np.array(image)
-        x_step = slice.shape[0]//size[0]
-        y_step = slice.shape[1]//size[1]
+        x_step = slice.shape[1]//size[0]
+        y_step = slice.shape[0]//size[1]
         slice = slice[::x_step,::y_step]
         cct.append(slice)
         n+=z_step
@@ -23,7 +23,7 @@ def build_voxel_array(directory, size):
 
 def create_cct_file(voxels):
     f = open('file.cct', 'w')
-    f.write('{},{},{}'.format(voxels.shape[0], voxels.shape[1], voxels.shape[2]))
+    f.write('{},{},{}'.format(voxels.shape[2], voxels.shape[1], voxels.shape[0]))
     for plane in voxels:
         f.write('\n')
         f.write(','.join(map(str,plane.ravel().tolist())))
