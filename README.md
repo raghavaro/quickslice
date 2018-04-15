@@ -4,7 +4,7 @@ Compressed Computed Tomography Files
 
 CCT files represent GBs of Tomographic Datasets in a single compressed file. The file size depends on the output size. The default size is 128 x 128 x 128 and the size of the output file is between 7 MB to 12 MB
 
-Note: Refrain from using CCT files for in-detail visualisation. CCT files are built using a super-lossy conversion technique and are meant to be used for a small quick preview of planes extracted from 3d models.
+Note: Refrain from using CCT files for in-detail visualisation. CCT files are built using a super-lossy conversion technique and are meant to be used for a small quick preview of planes extracted from 3d volumes.
 
 
 ### Representation:
@@ -77,9 +77,14 @@ will be represented as
 
 [slice.py](https://github.com/agu3010/cct/blob/master/slice.py) is used to extract a slice from a cct file. The following command shows the xy plane at z = 0 of [file.cct](https://github.com/agu3010/cct/blob/master/file.cct)
 
-    python slice.py -z 0 --ct file.cct
+    python slice.py -z 0 --cct file.cct
 
 ### The z=0 plane output
 
 ![-z 0 plane](https://github.com/agu3010/cct/blob/master/output.png?raw=true)
+
+
+### More examples
+
+More examples and commands with options can be found in [examples](https://github.com/agu3010/cct/tree/master/examples)
 
