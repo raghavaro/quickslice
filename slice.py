@@ -59,7 +59,7 @@ if __name__ == '__main__':
     slice = get_slice(volume, plane, args.threshold)
     if slice is None:
         sys.exit('Cannot generate slice')
-    img = Image.fromarray(np.uint8(slice * 255), 'L')
+    img = Image.fromarray(np.uint8(slice), 'L')
     img.save('output.png')
     img.show()
     
