@@ -5,7 +5,6 @@ import os
 import sys
 import math
 
-
 def read_cct_file(file):
     lines = [line.rstrip('\n') for line in open(file)]
     info = map(int, lines.pop(0).split(','))
@@ -18,8 +17,8 @@ def read_cct_file(file):
     return volume
 
 def get_slice(volume, plane, threshold):
-    volume[np.where(volume<threshold[0])] = 255
-    volume[np.where(volume>threshold[1])] = 255
+    volume[np.where(volume<threshold[0])] = -1
+    volume[np.where(volume>threshold[1])] = -1
     slice = None
     variable = plane[:1] 
     value = float(plane[1:])
@@ -33,9 +32,18 @@ def get_slice(volume, plane, threshold):
         z = int(math.ceil(value*(volume.shape[0]-1)))
         slice = volume[z,:,:]
     return slice
- 
-    
 
+def apply_transparency(slice):
+    alpha_slice = np.zeros_like(slice)
+    alpha_slice[np.where(slice!=-1)] = 255
+    slice[np.where(slice==-1)] = 255
+    rgba_slice = np.zeros((slice.shape[0], slice.shape[1], 4), 'uint8')
+    rgba_slice[..., 0] = slice
+    rgba_slice[..., 1] = slice
+    rgba_slice[..., 2] = slice
+    rgba_slice[..., 3] = alpha_slice
+    return rgba_slice
+ 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-x', '--x', type=float)
@@ -59,7 +67,8 @@ if __name__ == '__main__':
     slice = get_slice(volume, plane, args.threshold)
     if slice is None:
         sys.exit('Cannot generate slice')
-    img = Image.fromarray(np.uint8(slice), 'L')
+    image_slice = apply_transparency(slice)
+    img = Image.fromarray(image_slice, 'RGBA')
     img.save('output.png')
     img.show()
     
