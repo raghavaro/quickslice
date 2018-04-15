@@ -4,6 +4,7 @@ import argparse
 import os
 import sys
 import math
+import colormaps
 
 
 def read_cct_file(file):
@@ -49,28 +50,8 @@ def apply_transparency(slice):
 
 
 def apply_colormap(slice, threshold, colormap):
-    color_scales = {
-        'jet':[
-            [0,0,131],
-            [0,60,170],
-            [5,255,255],
-            [255,255,0],
-            [250,0,0],
-            [128,0,0]
-        ],
-        'viridis': [
-            [68,1,84],
-            [71,44,122],
-            [59,81,139],
-            [44,113,142],
-            [33,144,141],
-            [39,173,129],
-            [92,200,99],
-            [170,220,50],
-            [253,231,37]
-        ]
-    }
-    if colormap in color_scales:
+    colorscale = colormaps.colorscales.get(colormap)
+    if colorscale:
         lerp_range = range(threshold[0], threshold[1] + 1)
         max_index = threshold[1]-threshold[0]
         replacer = []
@@ -80,12 +61,12 @@ def apply_colormap(slice, threshold, colormap):
         alphas = np.zeros_like(slice)
         for i in lerp_range:
             replace_from = i
-            replace_to_index = (i-threshold[0])*(len(color_scales[colormap])-1)/max_index
+            replace_to_index = (i-threshold[0])*(len(colorscale)-1)/max_index
             upper_index = int(math.ceil(replace_to_index))
             lower_index = int(math.floor(replace_to_index))
             multiplier = replace_to_index - lower_index
-            upper_color = np.asarray(color_scales[colormap][upper_index])
-            lower_color = np.asarray(color_scales[colormap][lower_index])
+            upper_color = np.asarray(colorscale[upper_index])
+            lower_color = np.asarray(colorscale[lower_index])
             this_color = np.rint(lower_color + multiplier*(upper_color-lower_color)).astype(int)
             indices = np.where(slice == i)
             reds[indices[0], indices[1]] = this_color[0]
