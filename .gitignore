@@ -1,6 +1,8 @@
-.Python
-.pyc
+.DS_Store
+*.Python
+*.pyc
 bin/
 include/
 lib/
 pip-selfcheck.json
+tests/
