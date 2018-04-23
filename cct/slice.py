@@ -1,8 +1,6 @@
 from PIL import Image
 import numpy as np
-import argparse
 import os
-import sys
 import math
 import colormaps
 
@@ -79,38 +77,21 @@ def apply_colormap(slice, threshold, colormap):
         rgba_slice[..., 2] = blues
         rgba_slice[..., 3] = alphas
         return rgba_slice
-    sys.exit('Colormap not found')
+    return False
 
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-x', '--x', type=float)
-    parser.add_argument('-y', '--y', type=float)
-    parser.add_argument('-z', '--z', type=float)
-    parser.add_argument('-t', '--threshold', type=int, nargs='+',default=[0, 255])
-    parser.add_argument('--cct', type=str, required=True)
-    parser.add_argument('-c', '--colormap', type=str)
-    args = parser.parse_args()
-    if (args.x and args.y) or (args.y and args.z) or (args.z and args.x):
-        sys.exit('Only one of x, y, or z allowed')
-    plane = None
-    if isinstance(args.x, (int, float)) and args.x >= 0 and args.x <= 1:
-        plane = '{}{}'.format('x', args.x)
-    elif isinstance(args.y, (int, float)) and args.y >= 0 and args.y <= 1:
-        plane = '{}{}'.format('y', args.y)
-    elif isinstance(args.z, (int, float)) and args.z >= 0 and args.z <= 1:
-        plane = '{}{}'.format('z', args.z)
-    if not plane:
-        sys.exit('Enter a number between range 0-1.00 for x,y, or z')
-    volume = read_cct_file(args.cct)
-    slice = get_slice(volume, plane, args.threshold)
+def slice(file, plane, threshold, colormap):
+    volume = read_cct_file(file)
+    slice = get_slice(volume, plane, threshold)
     if slice is None:
-        sys.exit('Cannot generate slice')
-    if args.colormap:
-        image_slice = apply_colormap(slice, args.threshold, args.colormap)
+        return False, 'Cannot generate slice'
+    if colormap:
+        image_slice = apply_colormap(slice, threshold, colormap)
+        if type(image_slice) == bool:
+            return False, 'Colormap not found'
     else:
         image_slice = apply_transparency(slice)
     img = Image.fromarray(image_slice, 'RGBA')
     img.save('output.png')
     img.show()
-    
+    return True, 'Finished Slice Generation'

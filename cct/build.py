@@ -1,6 +1,5 @@
 from PIL import Image
 import numpy as np
-import argparse
 import os
 
 
@@ -28,13 +27,11 @@ def create_cct_file(voxels):
         f.write('\n')
         f.write(','.join(map(str,plane.ravel().tolist())))
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--path', type=str, required=True)
-    parser.add_argument('--size', type=int, nargs='+',default=[128, 128, 128])
-    args = parser.parse_args()
-    voxels = build_voxel_array(args.path, args.size)
+def build(directory, size):
+    voxels = build_voxel_array(directory, size)
     create_cct_file(voxels)
+    return True
+
 
 
 
