@@ -8,15 +8,15 @@ if __name__ == '__main__':
     subparsers = parser.add_subparsers(dest='command')
     
     build_parser = subparsers.add_parser('build')
-    build_parser.add_argument('--path', type=str, required=True)
+    build_parser.add_argument('path', type=str)
     build_parser.add_argument('--size', type=int, nargs='+',default=[128, 128, 128])
     
     slice_parser = subparsers.add_parser('slice')
+    slice_parser.add_argument('cct', type=str)
     slice_parser.add_argument('-x', '--x', type=float)
     slice_parser.add_argument('-y', '--y', type=float)
     slice_parser.add_argument('-z', '--z', type=float)
     slice_parser.add_argument('-t', '--threshold', type=int, nargs='+',default=[0, 255])
-    slice_parser.add_argument('--cct', type=str, required=True)
     slice_parser.add_argument('-c', '--colormap', type=str)
     
     args = parser.parse_args()

@@ -84,15 +84,15 @@ will be represented as
 
 Build
     
-    python main.py build --path path/to/directory
-    python main.py build --path path/to/directory --size 256 256 256
+    python main.py build path/to/directory
+    python main.py build path/to/directory --size 256 256 256
 
 Slice
 
-    python main.py slice --cct file.cct -z 0
-    python main.py slice --cct file.cct -z 0.5
-    python main.py slice --cct file.cct -x 0.7
-    python main.py slice --cct file.cct -y 1
+    python main.py slice file.cct -z 0
+    python main.py slice file.cct -z 0.5
+    python main.py slice file.cct -x 0.7
+    python main.py slice file.cct -y 1
     
 
 ### The z=0 plane output
