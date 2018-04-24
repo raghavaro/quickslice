@@ -4,6 +4,7 @@ import os
 import math
 import colormaps
 
+temporary_transparent_pixel = -1
 
 def read_cct_file(file):
     lines = [line.rstrip('\n') for line in open(file)]
@@ -17,11 +18,9 @@ def read_cct_file(file):
     return volume
 
 
-def get_slice(volume, plane, threshold):
-    volume[np.where(volume<threshold[0])] = -1
-    volume[np.where(volume>threshold[1])] = -1
+def get_slice(volume, plane, threshold, transparency):
     slice = None
-    variable = plane[:1] 
+    variable = plane[:1]
     value = float(plane[1:])
     if variable == 'x':
         x = int(math.ceil(value*(volume.shape[2]-1)))
@@ -32,13 +31,19 @@ def get_slice(volume, plane, threshold):
     elif variable == 'z':
         z = int(math.ceil(value*(volume.shape[0]-1)))
         slice = volume[z,:,:]
+    if threshold is not None:
+        if transparency:
+            slice[np.where(slice<threshold[0])] = temporary_transparent_pixel
+            slice[np.where(slice>threshold[1])] = temporary_transparent_pixel
+        else:
+            slice = np.clip(slice, threshold[0], threshold[1])
     return slice
 
 
-def apply_transparency(slice):
+def rectify_transparency(slice):
     alpha_slice = np.zeros_like(slice)
-    alpha_slice[np.where(slice!=-1)] = 255
-    slice[np.where(slice==-1)] = 255
+    alpha_slice[np.where(slice != temporary_transparent_pixel)] = 255
+    slice[np.where(slice == temporary_transparent_pixel)] = 0
     rgba_slice = np.zeros((slice.shape[0], slice.shape[1], 4), 'uint8')
     rgba_slice[..., 0] = slice
     rgba_slice[..., 1] = slice
@@ -70,7 +75,7 @@ def apply_colormap(slice, threshold, colormap):
             reds[indices[0], indices[1]] = this_color[0]
             greens[indices[0], indices[1]] = this_color[1]
             blues[indices[0], indices[1]] = this_color[2]
-        alphas[np.where(slice!=-1)] = 255
+        alphas[np.where(slice != temporary_transparent_pixel)] = 255
         rgba_slice = np.zeros((slice.shape[0], slice.shape[1], 4), 'uint8')
         rgba_slice[..., 0] = reds
         rgba_slice[..., 1] = greens
@@ -80,18 +85,22 @@ def apply_colormap(slice, threshold, colormap):
     return False
 
 
-def slice(file, plane, threshold, colormap):
+def slice(file, plane, threshold, colormap, transparent):
     volume = read_cct_file(file)
-    slice = get_slice(volume, plane, threshold)
+    slice = get_slice(volume, plane, threshold, transparent)
+    img = None
     if slice is None:
         return False, 'Cannot generate slice'
     if colormap:
         image_slice = apply_colormap(slice, threshold, colormap)
         if type(image_slice) == bool:
             return False, 'Colormap not found'
+        img = Image.fromarray(image_slice, 'RGBA')
+    elif transparent:
+        image_slice = rectify_transparency(slice)
+        img = Image.fromarray(image_slice, 'RGBA')
     else:
-        image_slice = apply_transparency(slice)
-    img = Image.fromarray(image_slice, 'RGBA')
+        img = Image.fromarray(slice.astype(np.uint8), 'L')
     img.save('output.png')
     img.show()
     return True, 'Finished Slice Generation'

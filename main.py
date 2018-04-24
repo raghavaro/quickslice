@@ -16,8 +16,9 @@ if __name__ == '__main__':
     slice_parser.add_argument('-x', '--x', type=float)
     slice_parser.add_argument('-y', '--y', type=float)
     slice_parser.add_argument('-z', '--z', type=float)
-    slice_parser.add_argument('-t', '--threshold', type=int, nargs='+',default=[0, 255])
+    slice_parser.add_argument('-th', '--threshold', type=int, nargs='+',default=[0, 255])
     slice_parser.add_argument('-c', '--colormap', type=str)
+    slice_parser.add_argument('-t', '--transparent', action='store_true')
     
     args = parser.parse_args()
     if args.command == 'build':
@@ -37,8 +38,10 @@ if __name__ == '__main__':
             plane = '{}{}'.format('z', args.z)
         if not plane:
             sys.exit('Enter a number between range 0-1.00 for x,y, or z')
-        done, message = slice(args.cct, plane, args.threshold, args.colormap)
+        print args.transparent
+        done, message = slice(args.cct, plane, args.threshold, args.colormap,
+                              args.transparent)
         sys.exit(message)
     sys.exit('Unknown command')
-    
+
     
