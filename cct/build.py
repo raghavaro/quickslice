@@ -1,11 +1,13 @@
 from PIL import Image
 import numpy as np
 import os
-
+import sys
 
 def build_voxel_array(directory, size, reverse):
     cct= []
     imagelist = sorted(os.listdir(directory))
+    if len(size) == 1:
+        size = [size[0], size[0], size[0]]
     z_step = len(imagelist)//size[2]
     n = 0
     z_range = range(size[2]) if not reverse else range(size[2], 0, -1)

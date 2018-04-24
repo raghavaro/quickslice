@@ -86,13 +86,14 @@ Build
 
     python main.py build path/to/directory
     python main.py build path/to/directory --size 256 256 256
+    python main.py build path/to/directory --size 256
 
 Slice
 
     python main.py slice file.cct -z 0
-    python main.py slice file.cct -z 0.5
-    python main.py slice file.cct -x 0.7
-    python main.py slice file.cct -y 1
+    python main.py slice file.cct -z 0.5 -t 104 120
+    python main.py slice file.cct -x 0.7 -t 104 130 --transparent
+    python main.py slice file.cct -y 1 -t 100 120 -c viridis --transparent
 
 
 ### The z=0 plane output

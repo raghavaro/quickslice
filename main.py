@@ -9,7 +9,7 @@ if __name__ == '__main__':
     
     build_parser = subparsers.add_parser('build')
     build_parser.add_argument('path', type=str)
-    build_parser.add_argument('--size', type=int, nargs='+',default=[128, 128, 128])
+    build_parser.add_argument('-s', '--size', type=int, nargs='+',default=[128, 128, 128])
     build_parser.add_argument('-r', '--reverse', action='store_true')
     
     slice_parser = subparsers.add_parser('slice')
@@ -17,12 +17,16 @@ if __name__ == '__main__':
     slice_parser.add_argument('-x', '--x', type=float)
     slice_parser.add_argument('-y', '--y', type=float)
     slice_parser.add_argument('-z', '--z', type=float)
-    slice_parser.add_argument('-th', '--threshold', type=int, nargs='+',default=[0, 255])
+    slice_parser.add_argument('-t', '--threshold', type=int, nargs='+',default=[0, 255])
     slice_parser.add_argument('-c', '--colormap', type=str)
-    slice_parser.add_argument('-t', '--transparent', action='store_true')
+    slice_parser.add_argument('-tr', '--transparent', action='store_true')
     
     args = parser.parse_args()
     if args.command == 'build':
+        if len(args.size) != 3 and len(args.size) != 1:
+            sys.exit('Bad size. Please enter 1 or 3 values')
+        if max(args.size) > 256:
+            sys.exit('Bad size. Size should be <= 256')
         if build(args.path, args.size, args.reverse):
             sys.exit('Finished building CCT File')
         sys.exit('Failed to generate CCT File')

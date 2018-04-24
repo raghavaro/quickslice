@@ -26,7 +26,7 @@ xy plane at z = .5
 
 yz plane at x = .5 with threshold (103, 120)
     
-    python main.py slice file.cct -x .5 -th 103 120
+    python main.py slice file.cct -x .5 -t 103 120
 
 ![example4.png](https://github.com/raghavaro/cct/blob/master/examples/example4.png?raw=true)
 
@@ -34,7 +34,7 @@ yz plane at x = .5 with threshold (103, 120)
 
 yz plane at x = .5 with threshold (103, 120) with 'viridis' colormap and transparent background
     
-    python main.py slice file.cct -x .5 -th 103 120 -c viridis -t
+    python main.py slice file.cct -x .5 -t 103 120 -c viridis --transparent
 
 ![example5.png](https://github.com/raghavaro/cct/blob/master/examples/example5.png?raw=true)
 
@@ -42,7 +42,7 @@ yz plane at x = .5 with threshold (103, 120) with 'viridis' colormap and transpa
 
 yz plane at x = .5 with threshold (103, 120) with 'jet' colormap and transparent background
     
-    python main.py slice file.cct -x .5 -th 103 120 -c jet -t
+    python main.py slice file.cct -x .5 -t 103 120 -c jet --transparent
 
 ![example6.png](https://github.com/raghavaro/cct/blob/master/examples/example6.png?raw=true)
 
