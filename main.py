@@ -10,6 +10,7 @@ if __name__ == '__main__':
     build_parser = subparsers.add_parser('build')
     build_parser.add_argument('path', type=str)
     build_parser.add_argument('--size', type=int, nargs='+',default=[128, 128, 128])
+    build_parser.add_argument('-r', '--reverse', action='store_true')
     
     slice_parser = subparsers.add_parser('slice')
     slice_parser.add_argument('cct', type=str)
@@ -22,7 +23,7 @@ if __name__ == '__main__':
     
     args = parser.parse_args()
     if args.command == 'build':
-        if build(args.path, args.size):
+        if build(args.path, args.size, args.reverse):
             sys.exit('Finished building CCT File')
         sys.exit('Failed to generate CCT File')
     
@@ -38,7 +39,6 @@ if __name__ == '__main__':
             plane = '{}{}'.format('z', args.z)
         if not plane:
             sys.exit('Enter a number between range 0-1.00 for x,y, or z')
-        print args.transparent
         done, message = slice(args.cct, plane, args.threshold, args.colormap,
                               args.transparent)
         sys.exit(message)

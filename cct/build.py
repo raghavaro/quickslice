@@ -3,12 +3,13 @@ import numpy as np
 import os
 
 
-def build_voxel_array(directory, size):
+def build_voxel_array(directory, size, reverse):
     cct= []
     imagelist = sorted(os.listdir(directory))
     z_step = len(imagelist)//size[2]
     n = 0
-    for i in range(size[2]):
+    z_range = range(size[2]) if not reverse else range(size[2], 0, -1)
+    for i in z_range:
         imgfile = imagelist[n]
         image = Image.open(os.path.join(directory, imgfile)).convert('L')
         slice = np.array(image)
@@ -27,8 +28,8 @@ def create_cct_file(voxels):
         f.write('\n')
         f.write(','.join(map(str,plane.ravel().tolist())))
 
-def build(directory, size):
-    voxels = build_voxel_array(directory, size)
+def build(directory, size, reverse):
+    voxels = build_voxel_array(directory, size, reverse)
     create_cct_file(voxels)
     return True
 
