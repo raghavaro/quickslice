@@ -1,17 +1,19 @@
-from cct.build import build
-from cct.slice import slice
 import argparse
 import sys
+import os
 
-if __name__ == '__main__':
+from core.build import build
+from core.slice import slice
+
+def main():
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers(dest='command')
-    
+
     build_parser = subparsers.add_parser('build')
     build_parser.add_argument('path', type=str)
     build_parser.add_argument('-s', '--size', type=int, nargs='+',default=[128, 128, 128])
     build_parser.add_argument('-r', '--reverse', action='store_true')
-    
+
     slice_parser = subparsers.add_parser('slice')
     slice_parser.add_argument('cct', type=str)
     slice_parser.add_argument('-x', '--x', type=float)
@@ -20,7 +22,7 @@ if __name__ == '__main__':
     slice_parser.add_argument('-t', '--threshold', type=int, nargs='+',default=[0, 255])
     slice_parser.add_argument('-c', '--colormap', type=str)
     slice_parser.add_argument('-tr', '--transparent', action='store_true')
-    
+
     args = parser.parse_args()
     if args.command == 'build':
         if len(args.size) != 3 and len(args.size) != 1:
@@ -30,7 +32,7 @@ if __name__ == '__main__':
         if build(args.path, args.size, args.reverse):
             sys.exit('Finished building CCT File')
         sys.exit('Failed to generate CCT File')
-    
+
     elif args.command == 'slice':
         if (args.x and args.y) or (args.y and args.z) or (args.z and args.x):
             sys.exit('Only one of x, y, or z allowed')
@@ -48,4 +50,5 @@ if __name__ == '__main__':
         sys.exit(message)
     sys.exit('Unknown command')
 
-    
+if __name__ == '__main__':
+    main()

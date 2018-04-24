@@ -1,7 +1,6 @@
 from PIL import Image
 import numpy as np
 import os
-import sys
 
 def build_voxel_array(directory, size, reverse):
     cct= []

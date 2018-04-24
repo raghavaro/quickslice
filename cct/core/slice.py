@@ -1,14 +1,14 @@
 from PIL import Image
 import numpy as np
-import os
 import math
+
 import colormaps
 
 temporary_transparent_pixel = -1
 
 def read_cct_file(file):
     lines = [line.rstrip('\n') for line in open(file)]
-    info = map(int, lines.pop(0).split(','))
+    info = list(map(int, lines.pop(0).split(',')))
     voxels = []
     while len(lines)>0:
         row = np.fromstring(lines.pop(0), dtype=int, sep=',')
