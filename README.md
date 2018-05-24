@@ -2,37 +2,40 @@
 
 A simple python package to compress large volumetric data and dynamically extract slices from the compressed volume.
 
+
 ## Usage
 
 Build
     
-    python main.py build path/to/directory
-    python main.py build path/to/directory --size 256 256 256
+    quickslice build path/to/directory
+    quickslice build path/to/directory --size 256 256 256
 
 Slice
 
-    python main.py slice file.cct -z 0
-    python main.py slice file.cct -z 0.5
-    python main.py slice file.cct -x 0.7
-    python main.py slice file.cct -y 1
+    quickslice slice file.cct -z 0
+    quickslice slice file.cct -z 0.5
+    quickslice slice file.cct -x 0.7
+    quickslice slice file.cct -y 1
     
+
 
 
 ## Files
 
-### main.py
+### quickslice
 
-[main.py](https://github.com/agu3010/cct/blob/master/main.py) is the main file which parses commands.
+[quickslice](https://github.com/agu3010/cct/blob/master/quickslice) is the main binary file
 
 
 ### build.py
 
-[build.py](https://github.com/agu3010/cct/blob/master/cct/build.py) takes input of a directory containing slices in alphanumeric order and converts it to a CCT (Compressed Computed Tomography) file of size 128 x 128 x 128
+[build.py](https://github.com/agu3010/cct/blob/master/core/build.py) takes input of a directory containing slices in alphanumeric order and converts it to a CCT (Compressed Computed Tomography) file of size 128 x 128 x 128
 
 
 ### slice.py
 
-[slice.py](https://github.com/agu3010/cct/blob/master/cct/slice.py) is used to extract a slice from a cct file. The following command shows the xy plane at z = 0 of [file.cct](https://github.com/agu3010/cct/blob/master/file.cct)
+[slice.py](https://github.com/agu3010/cct/blob/master/core/slice.py) is used to extract a slice from a cct file. The following command shows the xy plane at z = 0 of [file.cct](https://github.com/agu3010/cct/blob/master/file.cct)
+
 
 ## Additional Stuff
 
@@ -44,6 +47,8 @@ Slice
 ### More examples
 
 More examples and commands with options can be found in [examples](https://github.com/agu3010/cct/tree/master/examples)
+
+
 
 
 # CCT File format
