@@ -6,17 +6,16 @@ A simple python package to compress large volumetric data and dynamically extrac
 ## Usage
 
 Build
-    
-    quickslice build path/to/directory
-    quickslice build path/to/directory --size 256 256 256
+
+    qslice build path/to/directory
+    qslice build path/to/directory --size 256 256 256
 
 Slice
 
-    quickslice slice file.cct -z 0
-    quickslice slice file.cct -z 0.5
-    quickslice slice file.cct -x 0.7
-    quickslice slice file.cct -y 1
-    
+    qslice slice file.cct -z 0
+    qslice slice file.cct -z 0.5
+    qslice slice file.cct -x 0.7
+    qslice slice file.cct -y 1
 
 
 

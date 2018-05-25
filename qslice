@@ -4,8 +4,8 @@ import argparse
 import sys
 import os
 
-from core.build import build
-from core.slice import slice
+from quickslice.build import build
+from quickslice.slice import slice
 
 def main():
     parser = argparse.ArgumentParser()

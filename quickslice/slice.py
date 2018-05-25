@@ -2,7 +2,7 @@ from PIL import Image
 import numpy as np
 import math
 
-import colormaps
+from quickslice import colormaps
 
 temporary_transparent_pixel = -1
 

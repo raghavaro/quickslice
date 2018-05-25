@@ -14,7 +14,7 @@ setup(
     long_description_content_type="text/markdown",
     license='MIT',
     packages=find_packages(),
-    scripts=['quickslice'],
+    scripts=['qslice'],
     install_requires=[
         'Pillow==5.1.0',
         'numpy==1.14.3'

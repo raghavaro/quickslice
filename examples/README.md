@@ -2,7 +2,7 @@
 
 yz plane at x = .5
     
-    quickslice slice file.cct -x .5
+    qslice slice file.cct -x .5
 
 ![example1.png](https://github.com/raghavaro/cct/blob/master/examples/example1.png?raw=true)
 
@@ -10,7 +10,7 @@ yz plane at x = .5
 
 xz plane at y = .5
 
-    quickslice slice file.cct -y .5
+    qslice slice file.cct -y .5
 
 ![example2.png](https://github.com/raghavaro/cct/blob/master/examples/example2.png?raw=true)
 
@@ -18,7 +18,7 @@ xz plane at y = .5
 
 xy plane at z = .5
 
-    quickslice slice file.cct -z .5
+    qslice slice file.cct -z .5
 
 ![example3.png](https://github.com/raghavaro/cct/blob/master/examples/example3.png?raw=true)
 
@@ -26,7 +26,7 @@ xy plane at z = .5
 
 yz plane at x = .5 with threshold (103, 120)
     
-    quickslice slice file.cct -x .5 -t 103 120
+    qslice slice file.cct -x .5 -t 103 120
 
 ![example4.png](https://github.com/raghavaro/cct/blob/master/examples/example4.png?raw=true)
 
@@ -34,7 +34,7 @@ yz plane at x = .5 with threshold (103, 120)
 
 yz plane at x = .5 with threshold (103, 120) with 'viridis' colormap and transparent background
     
-    quickslice slice file.cct -x .5 -t 103 120 -c viridis --transparent
+    qslice slice file.cct -x .5 -t 103 120 -c viridis --transparent
 
 ![example5.png](https://github.com/raghavaro/cct/blob/master/examples/example5.png?raw=true)
 
@@ -42,7 +42,7 @@ yz plane at x = .5 with threshold (103, 120) with 'viridis' colormap and transpa
 
 yz plane at x = .5 with threshold (103, 120) with 'jet' colormap and transparent background
     
-    quickslice slice file.cct -x .5 -t 103 120 -c jet --transparent
+    qslice slice file.cct -x .5 -t 103 120 -c jet --transparent
 
 ![example6.png](https://github.com/raghavaro/cct/blob/master/examples/example6.png?raw=true)
 
@@ -50,6 +50,6 @@ yz plane at x = .5 with threshold (103, 120) with 'jet' colormap and transparent
 
 yz plane at x = .5 with 'viridis' colormap and no threshold
     
-    quickslice slice file.cct -x .5 -c viridis
+    qslice slice file.cct -x .5 -c viridis
 
 ![example7.png](https://github.com/raghavaro/cct/blob/master/examples/example7.png?raw=true)
