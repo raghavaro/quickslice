@@ -15,6 +15,7 @@ def main():
     build_parser.add_argument('path', type=str)
     build_parser.add_argument('-s', '--size', type=int, nargs='+',default=[128, 128, 128])
     build_parser.add_argument('-r', '--reverse', action='store_true')
+    build_parser.add_argument('-o', '--output', type=str, default='file.cct')
 
     slice_parser = subparsers.add_parser('slice')
     slice_parser.add_argument('cct', type=str)
@@ -31,8 +32,8 @@ def main():
             sys.exit('Bad size. Please enter 1 or 3 values')
         if max(args.size) > 256:
             sys.exit('Bad size. Size should be <= 256')
-        if build(args.path, args.size, args.reverse):
-            sys.exit('Finished building CCT File')
+        if build(args.path, args.size, args.reverse, args.output):
+            sys.exit('Finished building CCT File at {}'.format(args.output))
         sys.exit('Failed to generate CCT File')
 
     elif args.command == 'slice':

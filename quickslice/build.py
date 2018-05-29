@@ -16,7 +16,6 @@ def build_voxel_array(directory, size, reverse):
     if len(size) == 1:
         size = [size[0], size[0], size[0]]
     z_step = 1.0*len(imagelist)/size[2]
-    print(z_step)
     n = 0
     nr = n
     z_range = range(size[2]) if not reverse else range(size[2], 0, -1)
@@ -33,16 +32,16 @@ def build_voxel_array(directory, size, reverse):
     cct = np.asarray(cct)
     return cct
 
-def create_cct_file(voxels):
-    f = open('file.cct', 'w')
+def create_cct_file(voxels, output):
+    f = open(output, 'w')
     f.write('{},{},{}'.format(voxels.shape[2], voxels.shape[1], voxels.shape[0]))
     for plane in voxels:
         f.write('\n')
         f.write(','.join(map(str,plane.ravel().tolist())))
 
-def build(directory, size, reverse):
+def build(directory, size, reverse, output):
     voxels = build_voxel_array(directory, size, reverse)
-    create_cct_file(voxels)
+    create_cct_file(voxels, output)
     return True
 
 

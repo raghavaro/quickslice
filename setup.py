@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='quickslice',
-    version=1.1,
+    version=1.2,
     author='Raghav Arora',
     author_email='agu94.raghav@gmail.com',
     url='http://github.com/raghavaro/quickslice',
