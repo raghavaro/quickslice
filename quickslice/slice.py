@@ -85,7 +85,7 @@ def apply_colormap(slice, threshold, colormap):
     return False
 
 
-def slice(file, plane, threshold, colormap, transparent):
+def slice(file, plane, threshold, colormap, transparent, output):
     volume = read_cct_file(file)
     slice = get_slice(volume, plane, threshold, transparent)
     img = None
@@ -101,6 +101,5 @@ def slice(file, plane, threshold, colormap, transparent):
         img = Image.fromarray(image_slice, 'RGBA')
     else:
         img = Image.fromarray(slice.astype(np.uint8), 'L')
-    img.save('output.png')
-    img.show()
+    img.save(output)
     return True, 'Finished Slice Generation'

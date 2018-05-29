@@ -24,6 +24,7 @@ def main():
     slice_parser.add_argument('-z', '--z', type=float)
     slice_parser.add_argument('-t', '--threshold', type=int, nargs='+',default=[0, 255])
     slice_parser.add_argument('-c', '--colormap', type=str)
+    slice_parser.add_argument('-o', '--output', type=str, default='output.png')
     slice_parser.add_argument('-tr', '--transparent', action='store_true')
 
     args = parser.parse_args()
@@ -49,7 +50,7 @@ def main():
         if not plane:
             sys.exit('Enter a number between range 0-1.00 for x,y, or z')
         done, message = slice(args.cct, plane, args.threshold, args.colormap,
-                              args.transparent)
+                              args.transparent, args.output)
         sys.exit(message)
     sys.exit('Unknown command')
 
