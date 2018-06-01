@@ -12,14 +12,13 @@ def safe_list_get (a_list, i):
 
 def build_voxel_array(directory, size, reverse):
     cct= []
-    imagelist = sorted(os.listdir(directory))
+    imagelist = sorted(os.listdir(directory), reverse=reverse)
     if len(size) == 1:
         size = [size[0], size[0], size[0]]
     z_step = 1.0*len(imagelist)/size[2]
-    n = 0 if not reverse else -1
+    n = 0
     nr = n
-    z_range = range(size[2]) if not reverse else range(size[2], 0, -1)
-    print z_range
+    z_range = range(size[2])
     for i in z_range:
         imgfile = imagelist[nr]
         image = Image.open(os.path.join(directory, imgfile)).convert('L')
@@ -28,7 +27,7 @@ def build_voxel_array(directory, size, reverse):
         y_step = slice.shape[0]//size[1]
         slice = slice[::x_step,::y_step]
         cct.append(slice)
-        n = (n + z_step) if not reverse else (n - z_step)
+        n += z_step
         nr = int(round(n))
     cct = np.asarray(cct)
     return cct
