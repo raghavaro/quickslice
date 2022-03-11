@@ -11,7 +11,7 @@ setup(
     packages=find_packages(),
     scripts=["qslice"],
     install_requires=[
-        "Pillow==6.2.0",
+        "Pillow==9.0.1",
         "numpy==1.14.3"
     ],
     classifiers=[
