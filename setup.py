@@ -12,7 +12,7 @@ setup(
     scripts=["qslice"],
     install_requires=[
         "Pillow==6.2.0",
-        "numpy==1.14.3"
+        "numpy==1.22.0"
     ],
     classifiers=[
         "Programming Language :: Python :: 2.7",
